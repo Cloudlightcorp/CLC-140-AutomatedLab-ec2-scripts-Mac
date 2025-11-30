@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - yum install -y wget unzip
+      - wget https://releases.hashicorp.com/terraform/1.9.3/terraform_1.9.3_linux_amd64.zip
+      - unzip terraform_1.9.3_linux_amd64.zip
+      - mv terraform /usr/local/bin/
+
+  build:
+    commands:
+      - echo "Terraform init..."
+      - terraform init
+      - echo "Terraform destroy..."
+      - terraform destroy -auto-approve
+
+  post_build:
+    commands:
+      - echo "🗑 macOS EC2 instance terminated."
